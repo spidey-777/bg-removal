@@ -14,6 +14,7 @@ app.use('/api/user/webhooks', express.raw({ type: 'application/json' }));
 
 // Connect MongoDB
 (async () => {
+    console.log("Hello DB")
   await connectDB();
 })();
 
