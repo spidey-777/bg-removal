@@ -21,7 +21,11 @@ app.use(express.json());
 app.use(cors());
 
 // Routes
-app.get('/', (req, res) => res.send("API working"));
+app.get('/', async (req, res) => {
+  await connectDB();
+  res.send("API working");
+});
+
 app.use('/api/user', userRouter);
 
 
