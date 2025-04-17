@@ -6,10 +6,9 @@ import connectDB from './configs/mongodb.js';
 
 dotenv.config();
 
-const PORT = process.env.PORT || 4000;
-const app = express(); // ✅ Define app first
+const app = express();
 
-// 👇 Middleware for Clerk webhook (must come before express.json())
+// Clerk webhook raw body (must come before express.json)
 app.use('/api/user/webhooks', express.raw({ type: 'application/json' }));
 
 // Connect MongoDB
@@ -17,8 +16,8 @@ app.use('/api/user/webhooks', express.raw({ type: 'application/json' }));
   await connectDB();
 })();
 
-// Other middleware
-app.use(express.json()); // for regular routes
+// Middleware
+app.use(express.json());
 app.use(cors());
 
 // Routes
@@ -26,6 +25,8 @@ app.get('/', (req, res) => res.send("API working"));
 app.use('/api/user', userRouter);
 
 
-app.listen(PORT, () => {
-  console.log(`App running at PORT no. ${PORT}`);
-});
+// app.listen(PORT, () => {
+//   console.log(`App running at PORT no. ${PORT}`);
+// });
+
+export default app;
